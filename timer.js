@@ -1,7 +1,16 @@
-document.querySelector('.button').addEventListener('click', setBackground)
-function setBackground() {
+document
+  .querySelector('.button-awesome')
+  .addEventListener('click', setBackgroundRandom)
+function setBackgroundRandom() {
   const randomColor = Math.floor(Math.random() * 16777215).toString(16)
   document.body.style.backgroundColor = '#' + randomColor
+}
+
+document
+  .querySelector('.button-black')
+  .addEventListener('click', setBackgroundBlack)
+function setBackgroundBlack() {
+  document.body.style.backgroundColor = '#000000'
 }
 
 render()
