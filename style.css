@@ -5,21 +5,23 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 35px;
   text-align: center;
+  margin: 0;
 }
 
 .main {
-  margin: 0 auto;
+  margin: 10px auto;
   max-width: 650px;
-  min-height: 100vh;
+  min-height: calc(100vh - 20px);
   display: flex;
   flex-direction: column;
   align-items: center;
   /* height: 100vh; */
-  justify-content: space-between;
+  justify-content: center;
 }
+
 .title {
-  margin-bottom: 10px;
-  margin-top: 5%;
+  margin-bottom: 30px;
+  /* margin-top: 5%; */
   width: 620px;
   line-height: 120px;
   height: 120px;
@@ -34,18 +36,14 @@ body {
 }
 
 .section-days {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .section-numbers {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   justify-content: space-between;
   width: 620px;
-}
-
-.block {
-  /* max-width: 620px; */
 }
 
 .days {
@@ -53,7 +51,6 @@ body {
 .block-numbers {
   display: flex;
   justify-content: space-between;
-  /* margin: 0 10px; */
 }
 
 .digit {
@@ -64,7 +61,6 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0 5px;
-  /* margin-bottom: 5px; */
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
   -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
@@ -77,8 +73,6 @@ body {
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
   margin-top: 10px;
-  /* margin-left: 10px;
-  margin-right: 10px; */
   -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
   -moz-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
   box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
@@ -89,11 +83,11 @@ body {
   width: 620px;
   gap: 10px;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .button {
   height: 120px;
-  /* line-height: 80px; */
   padding: 0 10px;
   font-size: 35px;
   background-color: rgb(240, 240, 52);
@@ -111,22 +105,17 @@ body {
 }
 
 .button-color {
-  margin-bottom: 10px;
   flex: 0 1 50%;
-  /* margin-right: 5px; */
-  /* flex: 0 0 50%; */
 }
 
 .button-gradient {
-  margin-bottom: 10px;
   flex: 0 1 50%;
 }
 
 .button-black {
   width: 620px;
   word-wrap: break-word;
-  /* text-overflow: clip; */
-  margin-bottom: 30%;
+  /* margin-bottom: 30%; */
 }
 
 .dots {
