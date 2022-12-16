@@ -18,7 +18,7 @@ body {
   justify-content: space-between;
 }
 .title {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   margin-top: 5%;
   width: 620px;
   line-height: 120px;
@@ -34,12 +34,12 @@ body {
 }
 
 .section-days {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .section-numbers {
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .days {
@@ -47,7 +47,7 @@ body {
 .block-numbers {
   display: flex;
   justify-content: space-between;
-  margin: 15px;
+  margin: 0 15px;
 }
 
 .digit {
@@ -70,7 +70,9 @@ body {
   font-size: 30px;
   background-color: rgb(240, 240, 52);
   border-radius: 10px;
-  margin: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
   -moz-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
   box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
@@ -96,7 +98,7 @@ body {
 }
 
 .button-awesome {
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .button-black {
@@ -119,7 +121,7 @@ body {
   height: 10px;
   background-color: #fff;
   border-radius: 50%;
-  margin-top: 40px;
+  margin-top: 28px;
   background-color: rgb(224, 224, 42);
   -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
   -moz-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
