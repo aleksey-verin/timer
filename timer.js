@@ -1,15 +1,26 @@
+// document
+//   .querySelector('.button-awesome')
+//   .addEventListener('click', setBackgroundRandom)
+// function setBackgroundRandom() {
+//   const randomColor = Math.floor(Math.random() * 16777215).toString(16)
+//   document.body.style.backgroundColor = '#' + randomColor
+// }
+
 document
   .querySelector('.button-awesome')
   .addEventListener('click', setBackgroundRandom)
 function setBackgroundRandom() {
-  const randomColor = Math.floor(Math.random() * 16777215).toString(16)
-  document.body.style.backgroundColor = '#' + randomColor
+  const randomColor1 = '#' + Math.random().toString(16).substr(-6)
+  const randomColor2 = '#' + Math.random().toString(16).substr(-6)
+  document.body.style.background =
+    'linear-gradient(45deg, ' + randomColor1 + ', ' + randomColor2 + ')'
 }
 
 document
   .querySelector('.button-black')
   .addEventListener('click', setBackgroundBlack)
 function setBackgroundBlack() {
+  document.body.style.background = ''
   document.body.style.backgroundColor = '#000000'
 }
 
@@ -86,19 +97,9 @@ function render() {
       secondsString[0]
     document.querySelector('.seconds-block').lastElementChild.textContent =
       secondsString[1]
-    // document.querySelector('.hours').firstElementChild.textContent = hours
-    // document.querySelector('.minutes').firstElementChild.textContent = minutes
-    // document.querySelector('.seconds').firstElementChild.textContent = seconds
 
     document
       .querySelectorAll('.dots-block')
       .forEach((item) => item.classList.toggle('active'))
   }
 }
-
-// console.log(currentDate)
-// console.log(dateWeNeed)
-// console.log(deference)
-// console.log(hours)
-// console.log(minutes)
-// console.log(seconds)
