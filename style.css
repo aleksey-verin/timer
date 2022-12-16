@@ -89,7 +89,6 @@ body {
   -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
   -moz-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
   box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
-  margin-bottom: 40px;
 }
 
 .button:hover {
@@ -97,6 +96,7 @@ body {
 }
 
 .button-awesome {
+  margin-bottom: 40px;
 }
 
 .button-black {
