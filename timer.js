@@ -1,5 +1,10 @@
-render()
+document.querySelector('.button').addEventListener('click', setBackground)
+function setBackground() {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16)
+  document.body.style.backgroundColor = '#' + randomColor
+}
 
+render()
 setInterval(render, 1000)
 
 function render() {
@@ -84,11 +89,3 @@ function render() {
 // console.log(hours)
 // console.log(minutes)
 // console.log(seconds)
-
-const setBackground = () => {
-  const randomColor = Math.floor(Math.random() * 16777215).toString(16)
-  document.body.style.backgroundColor = '#' + randomColor
-  color.innerHTML = '#' + randomColor
-}
-document.querySelector('.button').addEventListener('click', setBackground)
-// setBackground()
