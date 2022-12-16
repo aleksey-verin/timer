@@ -17,7 +17,10 @@ body {
 .title {
   margin-bottom: 40px;
   margin-top: 40px;
-  color: rgb(240, 240, 52);
+  /* color: rgb(240, 240, 52); */
+  padding: 10px 30px;
+  background-color: rgb(240, 240, 52);
+  border-radius: 10px;
 }
 .title span {
   font-weight: 700;
@@ -52,15 +55,23 @@ body {
 
 .subtitle {
   font-size: 30px;
-  color: rgb(240, 240, 52);
+  background-color: rgb(240, 240, 52);
+  border-radius: 10px;
+  /* width: auto; */
+  /* padding: 10px; */
+  margin: 10px;
 }
 
-button {
-  width: 200px;
+.button {
+  width: 800px;
   height: 70px;
   font-size: 30px;
   background-color: rgb(240, 240, 52);
   border-radius: 10px;
   border: 0;
   cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgb(224, 224, 42);
 }

@@ -3,8 +3,12 @@ render()
 setInterval(render, 1000)
 
 function render() {
-  let dateWeNeed = Date.parse('2023-01-01T00:00:00.000+03:00')
-  let currentDate = Date.now()
+  let currentDate = new Date()
+
+  let currentYour = currentDate.getUTCFullYear()
+  let nextNewYear = currentYour + 1
+
+  let dateWeNeed = Date.parse(`${nextNewYear}-01-01T00:00:00.000+03:00`)
   let deference = dateWeNeed - currentDate
 
   if (deference < 0) {
@@ -13,13 +17,19 @@ function render() {
   } else {
     let days = Math.floor(deference / 1000 / 60 / 60 / 24)
     let daysString = String(days)
-    if (daysString.length < 2) {
+    if (daysString.length === 1) {
+      daysString = '00' + daysString
+    }
+    if (daysString.length === 2) {
       daysString = '0' + daysString
     }
     document.querySelector('.days-block').firstElementChild.textContent =
       daysString[0]
+    document.querySelector(
+      '.days-block'
+    ).firstElementChild.nextElementSibling.textContent = daysString[1]
     document.querySelector('.days-block').lastElementChild.textContent =
-      daysString[1]
+      daysString[2]
 
     let hours = Math.floor(
       (deference - days * 1000 * 60 * 60 * 24) / 1000 / 60 / 60
@@ -74,3 +84,11 @@ function render() {
 // console.log(hours)
 // console.log(minutes)
 // console.log(seconds)
+
+const setBackground = () => {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16)
+  document.body.style.backgroundColor = '#' + randomColor
+  color.innerHTML = '#' + randomColor
+}
+document.querySelector('.button').addEventListener('click', setBackground)
+// setBackground()
