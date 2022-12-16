@@ -21,19 +21,13 @@ body {
   margin-bottom: 40px;
   margin-top: 10%;
   width: 620px;
-  line-height: 80px;
+  line-height: 120px;
   height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* color: rgb(240, 240, 52); */
-  /* padding: 10px 0; */
   background-color: rgb(240, 240, 52);
   border-radius: 10px;
 }
 .title span {
   font-weight: 700;
-  margin-left: 5px;
 }
 
 .section-days {
@@ -43,7 +37,6 @@ body {
 .section-numbers {
   display: flex;
   margin-bottom: 50px;
-  /* flex-wrap: wrap; */
 }
 
 .days {
@@ -71,8 +64,6 @@ body {
   font-size: 30px;
   background-color: rgb(240, 240, 52);
   border-radius: 10px;
-  /* width: auto; */
-  /* padding: 10px; */
   margin: 10px;
 }
 
@@ -83,7 +74,6 @@ body {
   font-size: 35px;
   background-color: rgb(240, 240, 52);
   border-radius: 10px;
-  /* padding: 10px 30px; */
   border: 0;
   cursor: pointer;
   color: black;
