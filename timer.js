@@ -1,27 +1,46 @@
-// document
-//   .querySelector('.button-awesome')
-//   .addEventListener('click', setBackgroundRandom)
-// function setBackgroundRandom() {
-//   const randomColor = Math.floor(Math.random() * 16777215).toString(16)
-//   document.body.style.backgroundColor = '#' + randomColor
-// }
+colors = JSON.parse(localStorage.getItem('colors')) //===>><<===
+
+if (!colors) {
+  colors = {
+    color1: '#000',
+    color2: '#000',
+  }
+}
+
+document.body.style.background =
+  'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
 
 document
-  .querySelector('.button-awesome')
-  .addEventListener('click', setBackgroundRandom)
-function setBackgroundRandom() {
-  const randomColor1 = '#' + Math.random().toString(16).substr(-6)
-  const randomColor2 = '#' + Math.random().toString(16).substr(-6)
+  .querySelector('.button-color')
+  .addEventListener('click', setBackgroundRandomColor)
+function setBackgroundRandomColor() {
+  colors.color1 = '#' + Math.random().toString(16).substr(-6)
+  colors.color2 = colors.color1
   document.body.style.background =
-    'linear-gradient(45deg, ' + randomColor1 + ', ' + randomColor2 + ')'
+    'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
+  localStorage.setItem('colors', JSON.stringify(colors)) // <<======>>
+}
+
+document
+  .querySelector('.button-gradient')
+  .addEventListener('click', setBackgroundRandomGradient)
+function setBackgroundRandomGradient() {
+  colors.color1 = '#' + Math.random().toString(16).substr(-6)
+  colors.color2 = '#' + Math.random().toString(16).substr(-6)
+  document.body.style.background =
+    'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
+  localStorage.setItem('colors', JSON.stringify(colors)) // <<======>>
 }
 
 document
   .querySelector('.button-black')
   .addEventListener('click', setBackgroundBlack)
 function setBackgroundBlack() {
-  document.body.style.background = ''
-  document.body.style.backgroundColor = '#000000'
+  colors.color1 = '#000'
+  colors.color2 = '#000'
+  document.body.style.background =
+    'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
+  localStorage.setItem('colors', JSON.stringify(colors)) // <<======>>
 }
 
 render()

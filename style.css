@@ -84,10 +84,17 @@ body {
   box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
 }
 
-.button {
+.buttons-color {
+  display: flex;
   width: 620px;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.button {
   height: 120px;
-  line-height: 80px;
+  /* line-height: 80px; */
+  padding: 0 10px;
   font-size: 35px;
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
@@ -103,11 +110,22 @@ body {
   background-color: rgb(224, 224, 42);
 }
 
-.button-awesome {
+.button-color {
   margin-bottom: 10px;
+  flex: 0 1 50%;
+  /* margin-right: 5px; */
+  /* flex: 0 0 50%; */
+}
+
+.button-gradient {
+  margin-bottom: 10px;
+  flex: 0 1 50%;
 }
 
 .button-black {
+  width: 620px;
+  word-wrap: break-word;
+  /* text-overflow: clip; */
   margin-bottom: 30%;
 }
 
