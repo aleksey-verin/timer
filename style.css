@@ -102,3 +102,26 @@ body {
 .button-black {
   margin-bottom: 10%;
 }
+
+.dots {
+  width: 10px;
+}
+
+.dots-block {
+  width: 10px;
+}
+
+.dots-block.active {
+  display: none;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-top: 40px;
+  background-color: rgb(224, 224, 42);
+  -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
+  -moz-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
+  box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
+}

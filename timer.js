@@ -89,6 +89,10 @@ function render() {
     // document.querySelector('.hours').firstElementChild.textContent = hours
     // document.querySelector('.minutes').firstElementChild.textContent = minutes
     // document.querySelector('.seconds').firstElementChild.textContent = seconds
+
+    document
+      .querySelectorAll('.dots-block')
+      .forEach((item) => item.classList.toggle('active'))
   }
 }
 
