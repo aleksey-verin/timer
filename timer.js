@@ -1,4 +1,20 @@
-colors = JSON.parse(localStorage.getItem('colors')) //===>><<===
+const UI_ELEMENTS = {
+  DIGITS: {
+    daysOne: document.querySelector('.days-block').firstElementChild,
+    daysTwo:
+      document.querySelector('.days-block').firstElementChild
+        .nextElementSibling,
+    daysThree: document.querySelector('.days-block').lastElementChild,
+    hoursOne: document.querySelector('.hours-block').firstElementChild,
+    hoursTwo: document.querySelector('.hours-block').lastElementChild,
+    MinutesOne: document.querySelector('.minutes-block').firstElementChild,
+    MinutesTwo: document.querySelector('.minutes-block').lastElementChild,
+    secondsOne: document.querySelector('.seconds-block').firstElementChild,
+    secondsTwo: document.querySelector('.seconds-block').lastElementChild,
+  },
+}
+
+let colors = JSON.parse(localStorage.getItem('colors')) //===>><<===
 
 if (!colors) {
   colors = {
@@ -96,26 +112,16 @@ function getTime(deference, time) {
 }
 
 function setTimeInUI(time) {
-  document.querySelector('.days-block').firstElementChild.textContent =
-    time.daysString[0]
-  document.querySelector(
-    '.days-block'
-  ).firstElementChild.nextElementSibling.textContent = time.daysString[1]
-  document.querySelector('.days-block').lastElementChild.textContent =
-    time.daysString[2]
+  UI_ELEMENTS.DIGITS.daysOne.textContent = time.daysString[0]
+  UI_ELEMENTS.DIGITS.daysTwo.textContent = time.daysString[1]
+  UI_ELEMENTS.DIGITS.daysThree.textContent = time.daysString[2]
 
-  document.querySelector('.hours-block').firstElementChild.textContent =
-    time.hoursString[0]
-  document.querySelector('.hours-block').lastElementChild.textContent =
-    time.hoursString[1]
+  UI_ELEMENTS.DIGITS.hoursOne.textContent = time.hoursString[0]
+  UI_ELEMENTS.DIGITS.hoursTwo.textContent = time.hoursString[1]
 
-  document.querySelector('.minutes-block').firstElementChild.textContent =
-    time.minutesString[0]
-  document.querySelector('.minutes-block').lastElementChild.textContent =
-    time.minutesString[1]
+  UI_ELEMENTS.DIGITS.MinutesOne.textContent = time.minutesString[0]
+  UI_ELEMENTS.DIGITS.MinutesTwo.textContent = time.minutesString[1]
 
-  document.querySelector('.seconds-block').firstElementChild.textContent =
-    time.secondsString[0]
-  document.querySelector('.seconds-block').lastElementChild.textContent =
-    time.secondsString[1]
+  UI_ELEMENTS.DIGITS.secondsOne.textContent = time.secondsString[0]
+  UI_ELEMENTS.DIGITS.secondsTwo.textContent = time.secondsString[1]
 }
