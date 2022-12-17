@@ -11,33 +11,22 @@ document.body.style.background =
   'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
 
 document
-  .querySelector('.button-color')
-  .addEventListener('click', setBackgroundRandomColor)
-function setBackgroundRandomColor() {
-  colors.color1 = '#' + Math.random().toString(16).substr(-6)
-  colors.color2 = colors.color1
-  document.body.style.background =
-    'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
-  localStorage.setItem('colors', JSON.stringify(colors)) // <<======>>
-}
+  .querySelectorAll('.button')
+  .forEach((item) => item.addEventListener('click', changeColor))
 
-document
-  .querySelector('.button-gradient')
-  .addEventListener('click', setBackgroundRandomGradient)
-function setBackgroundRandomGradient() {
-  colors.color1 = '#' + Math.random().toString(16).substr(-6)
-  colors.color2 = '#' + Math.random().toString(16).substr(-6)
-  document.body.style.background =
-    'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
-  localStorage.setItem('colors', JSON.stringify(colors)) // <<======>>
-}
-
-document
-  .querySelector('.button-black')
-  .addEventListener('click', setBackgroundBlack)
-function setBackgroundBlack() {
-  colors.color1 = '#000'
-  colors.color2 = '#000'
+function changeColor() {
+  if (this.classList.contains('button-color')) {
+    colors.color1 = '#' + Math.random().toString(16).substr(-6)
+    colors.color2 = colors.color1
+  }
+  if (this.classList.contains('button-gradient')) {
+    colors.color1 = '#' + Math.random().toString(16).substr(-6)
+    colors.color2 = '#' + Math.random().toString(16).substr(-6)
+  }
+  if (this.classList.contains('button-black')) {
+    colors.color1 = '#000'
+    colors.color2 = '#000'
+  }
   document.body.style.background =
     'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
   localStorage.setItem('colors', JSON.stringify(colors)) // <<======>>
@@ -47,78 +36,86 @@ render()
 setInterval(render, 1000)
 
 function render() {
-  let currentDate = new Date()
+  const currentDate = new Date()
+  const currentYour = currentDate.getUTCFullYear()
+  const nextNewYear = currentYour + 1
 
-  let currentYour = currentDate.getUTCFullYear()
-  let nextNewYear = currentYour + 1
+  const dateWeNeed = Date.parse(`${nextNewYear}-01-01T00:00:00.000+03:00`)
+  const deference = dateWeNeed - currentDate
 
-  let dateWeNeed = Date.parse(`${nextNewYear}-01-01T00:00:00.000+03:00`)
-  let deference = dateWeNeed - currentDate
+  const time = {}
 
-  if (deference < 0) {
-    document.querySelector('.main').textContent =
-      'The event has already arrived!'
-  } else {
-    let days = Math.floor(deference / 1000 / 60 / 60 / 24)
-    let daysString = String(days)
-    if (daysString.length === 1) {
-      daysString = '00' + daysString
-    }
-    if (daysString.length === 2) {
-      daysString = '0' + daysString
-    }
-    document.querySelector('.days-block').firstElementChild.textContent =
-      daysString[0]
-    document.querySelector(
-      '.days-block'
-    ).firstElementChild.nextElementSibling.textContent = daysString[1]
-    document.querySelector('.days-block').lastElementChild.textContent =
-      daysString[2]
+  getTime(deference, time)
+  setTimeInUI(time)
 
-    let hours = Math.floor(
-      (deference - days * 1000 * 60 * 60 * 24) / 1000 / 60 / 60
-    )
-    let hoursString = String(hours)
-    if (hoursString.length < 2) {
-      hoursString = '0' + hoursString
-    }
-    document.querySelector('.hours-block').firstElementChild.textContent =
-      hoursString[0]
-    document.querySelector('.hours-block').lastElementChild.textContent =
-      hoursString[1]
+  document
+    .querySelectorAll('.dots-block')
+    .forEach((item) => item.classList.toggle('active'))
+}
 
-    let minutes = Math.floor(
-      (deference - days * 1000 * 60 * 60 * 24 - hours * 1000 * 60 * 60) /
-        1000 /
-        60
-    )
-    let minutesString = String(minutes)
-    if (minutesString.length < 2) {
-      minutesString = '0' + minutesString
-    }
-    document.querySelector('.minutes-block').firstElementChild.textContent =
-      minutesString[0]
-    document.querySelector('.minutes-block').lastElementChild.textContent =
-      minutesString[1]
-
-    let seconds = Math.floor(
-      (deference -
-        days * 1000 * 60 * 60 * 24 -
-        hours * 1000 * 60 * 60 -
-        minutes * 1000 * 60) /
-        1000
-    )
-    let secondsString = String(seconds)
-    if (secondsString.length < 2) {
-      secondsString = '0' + secondsString
-    }
-    document.querySelector('.seconds-block').firstElementChild.textContent =
-      secondsString[0]
-    document.querySelector('.seconds-block').lastElementChild.textContent =
-      secondsString[1]
-
-    document
-      .querySelectorAll('.dots-block')
-      .forEach((item) => item.classList.toggle('active'))
+function getTime(deference, time) {
+  const days = Math.floor(deference / 1000 / 60 / 60 / 24)
+  time.daysString = String(days)
+  if (time.daysString.length === 1) {
+    time.daysString = '00' + time.daysString
   }
+  if (time.daysString.length === 2) {
+    time.daysString = '0' + time.daysString
+  }
+
+  const hours = Math.floor(
+    (deference - days * 1000 * 60 * 60 * 24) / 1000 / 60 / 60
+  )
+  time.hoursString = String(hours)
+  if (time.hoursString.length < 2) {
+    time.hoursString = '0' + time.hoursString
+  }
+
+  const minutes = Math.floor(
+    (deference - days * 1000 * 60 * 60 * 24 - hours * 1000 * 60 * 60) /
+      1000 /
+      60
+  )
+  time.minutesString = String(minutes)
+  if (time.minutesString.length < 2) {
+    time.minutesString = '0' + time.minutesString
+  }
+
+  const seconds = Math.floor(
+    (deference -
+      days * 1000 * 60 * 60 * 24 -
+      hours * 1000 * 60 * 60 -
+      minutes * 1000 * 60) /
+      1000
+  )
+  time.secondsString = String(seconds)
+  if (time.secondsString.length < 2) {
+    time.secondsString = '0' + time.secondsString
+  }
+  return time
+}
+
+function setTimeInUI(time) {
+  document.querySelector('.days-block').firstElementChild.textContent =
+    time.daysString[0]
+  document.querySelector(
+    '.days-block'
+  ).firstElementChild.nextElementSibling.textContent = time.daysString[1]
+  document.querySelector('.days-block').lastElementChild.textContent =
+    time.daysString[2]
+
+  document.querySelector('.hours-block').firstElementChild.textContent =
+    time.hoursString[0]
+  document.querySelector('.hours-block').lastElementChild.textContent =
+    time.hoursString[1]
+
+  document.querySelector('.minutes-block').firstElementChild.textContent =
+    time.minutesString[0]
+  document.querySelector('.minutes-block').lastElementChild.textContent =
+    time.minutesString[1]
+
+  document.querySelector('.seconds-block').firstElementChild.textContent =
+    time.secondsString[0]
+  document.querySelector('.seconds-block').lastElementChild.textContent =
+    time.secondsString[1]
 }
