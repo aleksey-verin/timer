@@ -10,7 +10,7 @@ body {
   font-size: 35px;
   text-align: center;
   margin: 0;
-  -webkit-tap-highlight-color: red;
+  /* -webkit-tap-highlight-color: red; */
   -webkit-tap-highlight-color: transparent; /* for removing the highlight */
   /* color: black; */
 }
