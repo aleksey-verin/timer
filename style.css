@@ -280,8 +280,8 @@ body {
 
 .set-title-and-time {
   position: absolute;
-  width: 5rem;
-  height: 5rem;
+  width: 6rem;
+  height: 6rem;
   top: 1rem;
   right: 1rem;
   opacity: 0.5;
@@ -289,7 +289,7 @@ body {
   padding: 0 10px;
   font-size: 18px;
   background-color: rgb(224, 224, 42);
-  border-radius: 30px;
+  border-radius: 3rem;
   border: 0;
   cursor: pointer;
   color: black;
@@ -422,4 +422,7 @@ body {
   position: absolute;
   top: 20px;
   right: 20px;
+}
+.close-button:hover {
+  transform: scale(1.2);
 }
