@@ -1,21 +1,40 @@
 const UI_ELEMENTS = {
+  BODY: document.body,
+  TITLE: document.querySelector('.title'),
+  DOTS: document.querySelectorAll('.dots-block'),
   DIGITS: {
-    daysOne: document.querySelector('.days-block').firstElementChild,
-    daysTwo:
-      document.querySelector('.days-block').firstElementChild
-        .nextElementSibling,
-    daysThree: document.querySelector('.days-block').lastElementChild,
-    hoursOne: document.querySelector('.hours-block').firstElementChild,
-    hoursTwo: document.querySelector('.hours-block').lastElementChild,
-    MinutesOne: document.querySelector('.minutes-block').firstElementChild,
-    MinutesTwo: document.querySelector('.minutes-block').lastElementChild,
-    secondsOne: document.querySelector('.seconds-block').firstElementChild,
-    secondsTwo: document.querySelector('.seconds-block').lastElementChild,
+    daysOne: document.querySelector('.days-one'),
+    daysTwo: document.querySelector('.days-two'),
+    daysThree: document.querySelector('.days-tree'),
+    hoursOne: document.querySelector('.hours-one'),
+    hoursTwo: document.querySelector('.hours-two'),
+    MinutesOne: document.querySelector('.minutes-one'),
+    MinutesTwo: document.querySelector('.minutes-two'),
+    secondsOne: document.querySelector('.seconds-one'),
+    secondsTwo: document.querySelector('.seconds-two'),
+  },
+  BUTTONS: {
+    colorsButtons: document.querySelectorAll('.button'),
+    setTitleAndTime: document.querySelector('.set-title-and-time'),
+  },
+  MODAL_WINDOW: {
+    container: document.querySelector('.container-edit'),
+    form: document.querySelector('.edit-form'),
+    inputForTitle: document.querySelector('.edit-title'),
+    inputForTime: document.querySelector('.edit-time'),
+    inputForDate: document.querySelector('.edit-date'),
+    resetButton: document.querySelector('.reset-button'),
+    closeButton: document.querySelector('.close-button'),
   },
 }
 
-let colors = JSON.parse(localStorage.getItem('colors')) //===>><<===
+const defaultDataForUI = {
+  title: 'Are you ready for the New Year?',
+  time: '00:00',
+  date: `${new Date().getFullYear() + 1}-01-01`,
+}
 
+let colors = JSON.parse(localStorage.getItem('colors')) //===>><<===
 if (!colors) {
   colors = {
     color1: '#000',
@@ -23,12 +42,47 @@ if (!colors) {
   }
 }
 
-document.body.style.background =
+let dataForUI = JSON.parse(localStorage.getItem('dataForUI')) //===>><<===
+if (!dataForUI) {
+  dataForUI.title = defaultDataForUI.title
+  dataForUI.time = defaultDataForUI.time
+  dataForUI.date = defaultDataForUI.date
+} else {
+  UI_ELEMENTS.TITLE.textContent = dataForUI.title
+  UI_ELEMENTS.MODAL_WINDOW.inputForTitle.value = dataForUI.title
+  UI_ELEMENTS.MODAL_WINDOW.inputForTime.value = dataForUI.time
+  UI_ELEMENTS.MODAL_WINDOW.inputForDate.value = dataForUI.date
+}
+
+UI_ELEMENTS.MODAL_WINDOW.resetButton.addEventListener(
+  'click',
+  resetTitleAndDate
+)
+function resetTitleAndDate() {
+  event.preventDefault()
+  dataForUI.title = defaultDataForUI.title
+  dataForUI.time = defaultDataForUI.time
+  dataForUI.date = defaultDataForUI.date
+  localStorage.setItem('dataForUI', JSON.stringify(dataForUI)) // <<======>>
+
+  UI_ELEMENTS.TITLE.textContent = defaultDataForUI.title
+  UI_ELEMENTS.MODAL_WINDOW.inputForTitle.value = defaultDataForUI.title
+  UI_ELEMENTS.MODAL_WINDOW.inputForTime.value = defaultDataForUI.time
+  UI_ELEMENTS.MODAL_WINDOW.inputForDate.value = defaultDataForUI.date
+  UI_ELEMENTS.MODAL_WINDOW.container.classList.remove('active')
+}
+
+UI_ELEMENTS.MODAL_WINDOW.closeButton.addEventListener('click', closeModalWindow)
+function closeModalWindow() {
+  UI_ELEMENTS.MODAL_WINDOW.container.classList.remove('active')
+}
+
+UI_ELEMENTS.BODY.style.background =
   'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
 
-document
-  .querySelectorAll('.button')
-  .forEach((item) => item.addEventListener('click', changeColor))
+UI_ELEMENTS.BUTTONS.colorsButtons.forEach((item) =>
+  item.addEventListener('click', changeColor)
+)
 
 function changeColor() {
   if (this.classList.contains('button-color')) {
@@ -43,9 +97,35 @@ function changeColor() {
     colors.color1 = '#000'
     colors.color2 = '#000'
   }
-  document.body.style.background =
+  UI_ELEMENTS.BODY.style.background =
     'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
   localStorage.setItem('colors', JSON.stringify(colors)) // <<======>>
+}
+
+UI_ELEMENTS.BUTTONS.setTitleAndTime.addEventListener('click', showWindowForEdit)
+
+function showWindowForEdit() {
+  UI_ELEMENTS.MODAL_WINDOW.container.classList.add('active')
+  UI_ELEMENTS.MODAL_WINDOW.container.addEventListener('click', closeWindow)
+}
+function closeWindow() {
+  if (event.target.classList.contains('container-edit')) {
+    UI_ELEMENTS.MODAL_WINDOW.container.classList.remove('active')
+  }
+}
+
+UI_ELEMENTS.MODAL_WINDOW.form.addEventListener('submit', editAll)
+function editAll(event) {
+  event.preventDefault()
+
+  dataForUI.title = event.target[0].value
+  dataForUI.time = event.target[1].value
+  dataForUI.date = event.target[2].value
+
+  UI_ELEMENTS.TITLE.textContent = dataForUI.title
+  UI_ELEMENTS.MODAL_WINDOW.container.classList.remove('active')
+
+  localStorage.setItem('dataForUI', JSON.stringify(dataForUI)) // <<======>>
 }
 
 render()
@@ -53,10 +133,14 @@ setInterval(render, 1000)
 
 function render() {
   const currentDate = new Date()
-  const currentYour = currentDate.getUTCFullYear()
-  const nextNewYear = currentYour + 1
+  const nextYear = currentDate.getUTCFullYear() + 1
 
-  const dateWeNeed = Date.parse(`${nextNewYear}-01-01T00:00:00.000+03:00`)
+  let dateWeNeed
+  if (dataForUI) {
+    dateWeNeed = Date.parse(`${dataForUI.date}T${dataForUI.time}:00.000+03:00`)
+  } else {
+    dateWeNeed = Date.parse(`${nextYear}-01-01T00:00:00.000+03:00`)
+  }
   const deference = dateWeNeed - currentDate
 
   const time = {}
@@ -64,51 +148,63 @@ function render() {
   getTime(deference, time)
   setTimeInUI(time)
 
-  document
-    .querySelectorAll('.dots-block')
-    .forEach((item) => item.classList.toggle('active'))
+  UI_ELEMENTS.DOTS.forEach((item) => item.classList.toggle('active'))
 }
 
 function getTime(deference, time) {
-  const days = Math.floor(deference / 1000 / 60 / 60 / 24)
-  time.daysString = String(days)
-  if (time.daysString.length === 1) {
-    time.daysString = '00' + time.daysString
-  }
-  if (time.daysString.length === 2) {
-    time.daysString = '0' + time.daysString
-  }
+  if (deference > 0) {
+    const days = Math.floor(deference / 1000 / 60 / 60 / 24)
+    time.daysString = String(days)
+    if (time.daysString.length === 1) {
+      time.daysString = '00' + time.daysString
+    }
+    if (time.daysString.length === 2) {
+      time.daysString = '0' + time.daysString
+    }
 
-  const hours = Math.floor(
-    (deference - days * 1000 * 60 * 60 * 24) / 1000 / 60 / 60
-  )
-  time.hoursString = String(hours)
-  if (time.hoursString.length < 2) {
-    time.hoursString = '0' + time.hoursString
-  }
+    const hours = Math.floor(
+      (deference - days * 1000 * 60 * 60 * 24) / 1000 / 60 / 60
+    )
+    time.hoursString = String(hours)
+    if (time.hoursString.length < 2) {
+      time.hoursString = '0' + time.hoursString
+    }
 
-  const minutes = Math.floor(
-    (deference - days * 1000 * 60 * 60 * 24 - hours * 1000 * 60 * 60) /
-      1000 /
-      60
-  )
-  time.minutesString = String(minutes)
-  if (time.minutesString.length < 2) {
-    time.minutesString = '0' + time.minutesString
-  }
+    const minutes = Math.floor(
+      (deference - days * 1000 * 60 * 60 * 24 - hours * 1000 * 60 * 60) /
+        1000 /
+        60
+    )
+    time.minutesString = String(minutes)
+    if (time.minutesString.length < 2) {
+      time.minutesString = '0' + time.minutesString
+    }
 
-  const seconds = Math.floor(
-    (deference -
-      days * 1000 * 60 * 60 * 24 -
-      hours * 1000 * 60 * 60 -
-      minutes * 1000 * 60) /
-      1000
-  )
-  time.secondsString = String(seconds)
-  if (time.secondsString.length < 2) {
-    time.secondsString = '0' + time.secondsString
+    const seconds = Math.floor(
+      (deference -
+        days * 1000 * 60 * 60 * 24 -
+        hours * 1000 * 60 * 60 -
+        minutes * 1000 * 60) /
+        1000
+    )
+    time.secondsString = String(seconds)
+    if (time.secondsString.length < 2) {
+      time.secondsString = '0' + time.secondsString
+    }
+    return time
+  } else {
+    time.daysString = '000'
+    time.hoursString = '00'
+    time.minutesString = '00'
+    time.secondsString = '00'
+
+    colors.color1 = '#' + Math.random().toString(16).substr(-6)
+    colors.color2 = '#' + Math.random().toString(16).substr(-6)
+    UI_ELEMENTS.BODY.style.background =
+      'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
+
+    return time
   }
-  return time
 }
 
 function setTimeInUI(time) {
