@@ -374,6 +374,7 @@ body {
 }
 .edit-date {
   width: 360px;
+  margin-left: 10px;
 }
 .edit-time {
   width: 200px;
@@ -387,6 +388,7 @@ body {
 
 .edit-button {
   width: 360px;
+  margin-left: 10px;
 }
 .edit-button:hover {
   background-color: rgb(224, 224, 42);
@@ -400,6 +402,7 @@ body {
   line-height: 60px;
   height: 80px;
   font-size: 35px;
+  color: #000;
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
   -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
