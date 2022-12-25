@@ -41,12 +41,16 @@ if (!colors) {
     color2: '#000',
   }
 }
+// console.log(dataForUI.title)
+console.log(defaultDataForUI.title)
 
 let dataForUI = JSON.parse(localStorage.getItem('dataForUI')) //===>><<===
 if (!dataForUI) {
+  dataForUI = {}
   dataForUI.title = defaultDataForUI.title
   dataForUI.time = defaultDataForUI.time
   dataForUI.date = defaultDataForUI.date
+  UI_ELEMENTS.TITLE.textContent = dataForUI.title
 } else {
   UI_ELEMENTS.TITLE.textContent = dataForUI.title
   UI_ELEMENTS.MODAL_WINDOW.inputForTitle.value = dataForUI.title
