@@ -343,7 +343,7 @@ button:before {
   background-color: #000;
   border-radius: 20px;
   /* position: absolute; */
-  width: 700px;
+  width: 620px;
   height: 600px;
   padding: 10px;
   z-index: 5;
@@ -360,7 +360,7 @@ button:before {
   align-items: center;
   gap: 30px;
   height: 100%;
-  padding: 50px;
+  padding: 30px;
 }
 
 .edit-title {
@@ -375,9 +375,11 @@ button:before {
 
 .edit-label {
   color: #fff;
+  font-size: 33px;
+  line-height: 1.2;
 }
 .edit-date {
-  width: 360px;
+  width: 300px;
   margin-left: 10px;
 }
 .edit-time {
@@ -391,7 +393,7 @@ button:before {
 }
 
 .make-changes-button {
-  width: 360px;
+  width: 300px;
   margin-left: 10px;
 }
 .make-changes-button:hover {
@@ -405,7 +407,7 @@ button:before {
 .reset-button {
   line-height: 60px;
   height: 80px;
-  font-size: 35px;
+  font-size: 33px;
   color: #000;
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
