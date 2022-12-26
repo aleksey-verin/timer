@@ -14,8 +14,8 @@ const UI_ELEMENTS = {
     secondsTwo: document.querySelector('.seconds-two'),
   },
   BUTTONS: {
-    colorsButtons: document.querySelectorAll('.button'),
-    setTitleAndTime: document.querySelector('.set-title-and-time'),
+    colorsButtons: document.querySelectorAll('.set-color-btn'),
+    setTitleAndTime: document.querySelector('.button-edit'),
   },
   MODAL_WINDOW: {
     container: document.querySelector('.container-edit'),
@@ -23,6 +23,7 @@ const UI_ELEMENTS = {
     inputForTitle: document.querySelector('.edit-title'),
     inputForTime: document.querySelector('.edit-time'),
     inputForDate: document.querySelector('.edit-date'),
+    makeChangesButton: document.querySelector('.make-changes-button'),
     resetButton: document.querySelector('.reset-button'),
     closeButton: document.querySelector('.close-button'),
   },
@@ -41,8 +42,6 @@ if (!colors) {
     color2: '#000',
   }
 }
-// console.log(dataForUI.title)
-console.log(defaultDataForUI.title)
 
 let dataForUI = JSON.parse(localStorage.getItem('dataForUI')) //===>><<===
 if (!dataForUI) {
@@ -119,12 +118,13 @@ function closeWindow() {
 }
 
 UI_ELEMENTS.MODAL_WINDOW.form.addEventListener('submit', editAll)
+
 function editAll(event) {
   event.preventDefault()
 
   dataForUI.title = event.target[0].value
-  dataForUI.time = event.target[1].value
-  dataForUI.date = event.target[2].value
+  dataForUI.date = event.target[1].value
+  dataForUI.time = event.target[2].value
 
   UI_ELEMENTS.TITLE.textContent = dataForUI.title
   UI_ELEMENTS.MODAL_WINDOW.container.classList.remove('active')

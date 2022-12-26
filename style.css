@@ -186,7 +186,15 @@ body {
   box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
 }
 
-.buttons-color {
+.buttons-one-two {
+  display: flex;
+  width: 465px;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.buttons-three-four {
   display: flex;
   width: 465px;
   gap: 10px;
@@ -201,8 +209,8 @@ body {
 
 .button {
   height: 120px;
-  padding: 0 10px;
-  font-size: 35px;
+  padding: 0 10px 0 60px;
+  font-size: 28px;
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
   border: 0;
@@ -219,16 +227,43 @@ body {
 
 .button-color {
   flex: 0 1 50%;
+  position: relative;
+}
+.button-color::before {
+  background: url('./images/colors.png') 0 0/100% no-repeat;
 }
 
 .button-gradient {
   flex: 0 1 50%;
+  position: relative;
+}
+.button-gradient::before {
+  background: url('./images/gradient.png') 0 0/100% no-repeat;
 }
 
 .button-black {
-  width: 465px;
-  padding: 0 50px;
-  word-wrap: break-word;
+  flex: 0 1 50%;
+  position: relative;
+}
+.button-black::before {
+  background: url('./images/black.png') 0 0/100% no-repeat;
+}
+
+.button-edit {
+  flex: 0 1 50%;
+  position: relative;
+}
+.button-edit::before {
+  background: url('./images/edit.png') 0 0/100% no-repeat;
+}
+button:before {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  content: '';
+  top: 35px;
+  left: 22px;
+  background-color: transparent;
 }
 
 .dots {
@@ -270,46 +305,20 @@ body {
     flex-direction: column;
     gap: 0px;
   }
-  .buttons-color {
+  .buttons-one-two {
     width: 620px;
   }
-  .button-black {
+  .buttons-three-four {
     width: 620px;
   }
+  .button {
+    padding: 0 10px 0 40px;
+    font-size: 32px;
+  }
+  .button:before {
+    left: 30px;
+  }
 }
-
-.set-title-and-time {
-  position: absolute;
-  width: 6rem;
-  height: 6rem;
-  top: 1rem;
-  right: 1rem;
-  opacity: 0.5;
-
-  padding: 0 10px;
-  font-size: 18px;
-  background-color: rgb(224, 224, 42);
-  border-radius: 3rem;
-  border: 0;
-  cursor: pointer;
-  color: black;
-  -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
-  -moz-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
-  box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
-}
-.set-title-and-time:hover {
-  opacity: 1;
-}
-
-.set-title-and-time img {
-  width: 30px;
-  height: 30px;
-}
-
-/* .main {
-  background-color: black;
-  opacity: 0.2;
-} */
 
 .container-edit {
   display: none;
@@ -357,9 +366,6 @@ body {
 .edit-title {
   width: 100%;
 }
-/* .edit-title::placeholder {
-  padding: 20px;
-} */
 
 .block-time {
   width: 100%;
@@ -384,18 +390,18 @@ body {
   justify-content: space-between;
 }
 
-.edit-button {
+.make-changes-button {
   width: 360px;
   margin-left: 10px;
 }
-.edit-button:hover {
+.make-changes-button:hover {
   background-color: rgb(224, 224, 42);
 }
 
 .edit-title,
 .edit-date,
 .edit-time,
-.edit-button,
+.make-changes-button,
 .reset-button {
   line-height: 60px;
   height: 80px;
