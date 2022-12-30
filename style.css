@@ -125,8 +125,12 @@ body {
 .title {
   margin-bottom: 30px;
   width: 930px;
-  line-height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.3;
   font-weight: 700;
+  padding: 0 20px;
   height: 120px;
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
@@ -137,12 +141,13 @@ body {
 
 .main-section-digits {
   display: flex;
-  gap: 30px;
-  justify-content: center;
+  /* gap: 10px; */
+  justify-content: space-between;
+  width: 930px;
 }
 
 .section-days {
-  width: 290px;
+  width: 270px;
 }
 
 .section-numbers {
@@ -157,6 +162,7 @@ body {
 .block-numbers {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .digit {
@@ -166,7 +172,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 5px;
+  /* margin: 0 5px; */
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
   -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
@@ -191,7 +197,7 @@ body {
   width: 465px;
   gap: 10px;
   justify-content: space-between;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 }
 
 .buttons-three-four {
@@ -199,12 +205,13 @@ body {
   width: 465px;
   gap: 10px;
   justify-content: space-between;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 }
 
 .all-buttons {
   display: flex;
   gap: 10px;
+  width: 930px;
 }
 
 .button {
@@ -299,14 +306,17 @@ button:before {
   .main-section-digits {
     flex-direction: column;
     align-items: center;
+    gap: 30px;
   }
   .all-buttons {
+    width: 620px;
     display: flex;
     flex-direction: column;
     gap: 0px;
   }
   .buttons-one-two {
     width: 620px;
+    margin-bottom: 10px;
   }
   .buttons-three-four {
     width: 620px;
