@@ -4,6 +4,11 @@ const CONTENT = {
     rus: 'Вы готовы к Новому году?',
     esp: '¿Estás listo para el Año Nuevo?',
   },
+  titleFinish: {
+    eng: 'Hooray! The time has come!',
+    rus: 'Ура! Время пришло!',
+    esp: '¡Hurra! ¡El tiempo ha llegado!',
+  },
   subtitle: {
     days: {
       eng: 'Days',

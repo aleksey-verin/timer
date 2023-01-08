@@ -1,29 +1,26 @@
 import UI_ELEMENTS from './ui-elements.js'
 import CONTENT from './content.js'
+import { lang } from './handlers.js'
 
-const defaultDataForUI = {
-  title: 'Are you ready for the New Year?',
+export const defaultDataForUI = {
   time: '00:00',
   date: `${new Date().getFullYear() + 1}-01-01`,
 }
 
-let colors = JSON.parse(localStorage.getItem('colors')) //===>><<===
+export let colors = JSON.parse(localStorage.getItem('colors')) //===>><<===
 if (!colors) {
   colors = {
     color1: '#000',
     color2: '#000',
   }
 }
+UI_ELEMENTS.BODY.style.background =
+  'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
 
-let lang = JSON.parse(localStorage.getItem('lang')) //===>><<===
-if (!lang) {
-  lang = 'eng'
-}
-
-let dataForUI = JSON.parse(localStorage.getItem('dataForUI')) //===>><<===
+export let dataForUI = JSON.parse(localStorage.getItem('dataForUI')) //===>><<===
 if (!dataForUI) {
   dataForUI = {}
-  dataForUI.title = defaultDataForUI.title
+  dataForUI.title = CONTENT.title.eng
   dataForUI.time = defaultDataForUI.time
   dataForUI.date = defaultDataForUI.date
   UI_ELEMENTS.TITLE.textContent = dataForUI.title
@@ -32,130 +29,6 @@ if (!dataForUI) {
   UI_ELEMENTS.MODAL_WINDOW.inputForTitle.value = dataForUI.title
   UI_ELEMENTS.MODAL_WINDOW.inputForTime.value = dataForUI.time
   UI_ELEMENTS.MODAL_WINDOW.inputForDate.value = dataForUI.date
-}
-
-UI_ELEMENTS.MODAL_WINDOW.languageButtons.forEach((item) => {
-  item.addEventListener('click', changeLanguage)
-  if (item.dataset.lang === lang) {
-    item.classList.add('active')
-  }
-})
-function changeLanguage(e) {
-  UI_ELEMENTS.MODAL_WINDOW.languageButtons.forEach((item) => {
-    item.classList.remove('active')
-  })
-  e.target.classList.add('active')
-  lang = e.target.dataset.lang
-  localStorage.setItem('lang', JSON.stringify(lang)) // <<======>>
-  renderForContent(lang)
-}
-
-function renderForContent(lang) {
-  UI_ELEMENTS.TITLE.textContent = CONTENT.title[lang] ///-------- конфликт
-  UI_ELEMENTS.SUBTITLES.days.textContent = CONTENT.subtitle.days[lang]
-  UI_ELEMENTS.SUBTITLES.hours.textContent = CONTENT.subtitle.hours[lang]
-  UI_ELEMENTS.SUBTITLES.minutes.textContent = CONTENT.subtitle.minutes[lang]
-  UI_ELEMENTS.SUBTITLES.seconds.textContent = CONTENT.subtitle.seconds[lang]
-  UI_ELEMENTS.BUTTONS.buttonColor.textContent = CONTENT.buttons.color[lang]
-  UI_ELEMENTS.BUTTONS.buttonGradient.textContent =
-    CONTENT.buttons.gradient[lang]
-  UI_ELEMENTS.BUTTONS.buttonBlack.textContent = CONTENT.buttons.black[lang]
-  UI_ELEMENTS.BUTTONS.buttonEdit.textContent = CONTENT.buttons.edit[lang]
-
-  UI_ELEMENTS.MODAL_WINDOW.label.textContent = CONTENT.modalWindow.label[lang]
-  UI_ELEMENTS.MODAL_WINDOW.inputForTitle.value = CONTENT.modalWindow.input[lang] /// -------
-  UI_ELEMENTS.MODAL_WINDOW.makeChangesButton.textContent =
-    CONTENT.modalWindow.buttonEdit[lang]
-  UI_ELEMENTS.MODAL_WINDOW.resetButton.textContent =
-    CONTENT.modalWindow.buttonReset[lang]
-
-  if (lang === 'rus' || lang === 'esp') {
-    UI_ELEMENTS.BUTTONS.allButtons.forEach((item) => item.classList.add('min'))
-    UI_ELEMENTS.MODAL_WINDOW.makeChangesButton.classList.add('min')
-  } else {
-    UI_ELEMENTS.BUTTONS.allButtons.forEach((item) =>
-      item.classList.remove('min')
-    )
-    UI_ELEMENTS.MODAL_WINDOW.makeChangesButton.classList.remove('min')
-  }
-}
-
-UI_ELEMENTS.BODY.style.background =
-  'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
-
-UI_ELEMENTS.BUTTONS.colorsButtons.forEach((item) =>
-  item.addEventListener('click', changeColor)
-)
-
-function changeColor() {
-  if (this.classList.contains('button-color')) {
-    colors.color1 = '#' + Math.random().toString(16).substr(-6)
-    colors.color2 = colors.color1
-  }
-  if (this.classList.contains('button-gradient')) {
-    colors.color1 = '#' + Math.random().toString(16).substr(-6)
-    colors.color2 = '#' + Math.random().toString(16).substr(-6)
-  }
-  if (this.classList.contains('button-black')) {
-    colors.color1 = '#000'
-    colors.color2 = '#000'
-  }
-  UI_ELEMENTS.BODY.style.background =
-    'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
-  localStorage.setItem('colors', JSON.stringify(colors)) // <<======>>
-}
-
-UI_ELEMENTS.BUTTONS.buttonEdit.addEventListener('click', showModalWindowForEdit)
-
-function showModalWindowForEdit() {
-  UI_ELEMENTS.MODAL_WINDOW.container.classList.add('active')
-  UI_ELEMENTS.MODAL_WINDOW.container.addEventListener(
-    'click',
-    closeModalWindowByClickOutside
-  )
-}
-function closeModalWindowByClickOutside() {
-  if (event.target.classList.contains('container-edit')) {
-    UI_ELEMENTS.MODAL_WINDOW.container.classList.remove('active')
-  }
-}
-
-UI_ELEMENTS.MODAL_WINDOW.form.addEventListener('submit', makeChanges)
-
-function makeChanges(event) {
-  event.preventDefault()
-
-  dataForUI.title = event.target[0].value
-  dataForUI.date = event.target[1].value
-  dataForUI.time = event.target[2].value
-
-  UI_ELEMENTS.TITLE.textContent = dataForUI.title
-  UI_ELEMENTS.MODAL_WINDOW.container.classList.remove('active')
-
-  localStorage.setItem('dataForUI', JSON.stringify(dataForUI)) // <<======>>
-}
-
-UI_ELEMENTS.MODAL_WINDOW.resetButton.addEventListener(
-  'click',
-  resetTitleAndDate
-)
-function resetTitleAndDate() {
-  event.preventDefault()
-  dataForUI.title = defaultDataForUI.title
-  dataForUI.time = defaultDataForUI.time
-  dataForUI.date = defaultDataForUI.date
-  localStorage.setItem('dataForUI', JSON.stringify(dataForUI)) // <<======>>
-
-  UI_ELEMENTS.TITLE.textContent = defaultDataForUI.title
-  UI_ELEMENTS.MODAL_WINDOW.inputForTitle.value = defaultDataForUI.title
-  UI_ELEMENTS.MODAL_WINDOW.inputForTime.value = defaultDataForUI.time
-  UI_ELEMENTS.MODAL_WINDOW.inputForDate.value = defaultDataForUI.date
-  UI_ELEMENTS.MODAL_WINDOW.container.classList.remove('active')
-}
-
-UI_ELEMENTS.MODAL_WINDOW.closeButton.addEventListener('click', closeModalWindow)
-function closeModalWindow() {
-  UI_ELEMENTS.MODAL_WINDOW.container.classList.remove('active')
 }
 
 render()
@@ -233,7 +106,7 @@ function getTime(deference, time) {
     colors.color2 = '#' + Math.random().toString(16).substr(-6)
     UI_ELEMENTS.BODY.style.background =
       'linear-gradient(45deg, ' + colors.color1 + ', ' + colors.color2 + ')'
-
+    UI_ELEMENTS.TITLE.textContent = CONTENT.titleFinish[lang]
     return time
   }
 }
@@ -251,4 +124,34 @@ function setTimeInUI(time) {
 
   UI_ELEMENTS.DIGITS.secondsOne.textContent = time.secondsString[0]
   UI_ELEMENTS.DIGITS.secondsTwo.textContent = time.secondsString[1]
+}
+
+export function renderForContent(lang) {
+  UI_ELEMENTS.TITLE.textContent = CONTENT.title[lang]
+  UI_ELEMENTS.SUBTITLES.days.textContent = CONTENT.subtitle.days[lang]
+  UI_ELEMENTS.SUBTITLES.hours.textContent = CONTENT.subtitle.hours[lang]
+  UI_ELEMENTS.SUBTITLES.minutes.textContent = CONTENT.subtitle.minutes[lang]
+  UI_ELEMENTS.SUBTITLES.seconds.textContent = CONTENT.subtitle.seconds[lang]
+  UI_ELEMENTS.BUTTONS.buttonColor.textContent = CONTENT.buttons.color[lang]
+  UI_ELEMENTS.BUTTONS.buttonGradient.textContent =
+    CONTENT.buttons.gradient[lang]
+  UI_ELEMENTS.BUTTONS.buttonBlack.textContent = CONTENT.buttons.black[lang]
+  UI_ELEMENTS.BUTTONS.buttonEdit.textContent = CONTENT.buttons.edit[lang]
+
+  UI_ELEMENTS.MODAL_WINDOW.label.textContent = CONTENT.modalWindow.label[lang]
+  UI_ELEMENTS.MODAL_WINDOW.inputForTitle.value = CONTENT.modalWindow.input[lang]
+  UI_ELEMENTS.MODAL_WINDOW.makeChangesButton.textContent =
+    CONTENT.modalWindow.buttonEdit[lang]
+  UI_ELEMENTS.MODAL_WINDOW.resetButton.textContent =
+    CONTENT.modalWindow.buttonReset[lang]
+
+  if (lang === 'rus' || lang === 'esp') {
+    UI_ELEMENTS.BUTTONS.allButtons.forEach((item) => item.classList.add('min'))
+    UI_ELEMENTS.MODAL_WINDOW.makeChangesButton.classList.add('min')
+  } else {
+    UI_ELEMENTS.BUTTONS.allButtons.forEach((item) =>
+      item.classList.remove('min')
+    )
+    UI_ELEMENTS.MODAL_WINDOW.makeChangesButton.classList.remove('min')
+  }
 }
