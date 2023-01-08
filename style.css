@@ -183,6 +183,7 @@ body {
 .subtitle {
   font-size: 30px;
   line-height: 30px;
+  height: 45px;
   padding: 5px;
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
@@ -216,7 +217,7 @@ body {
 
 .button {
   height: 120px;
-  padding: 0 10px 0 60px;
+  padding: 0 10px 0 80px;
   font-size: 28px;
   background-color: rgb(240, 240, 52);
   border-radius: 20px;
@@ -226,6 +227,9 @@ body {
   -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
   -moz-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
   box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
+}
+.button.min {
+  font-size: 24px;
 }
 
 .button:hover {
@@ -323,8 +327,12 @@ button:before {
     width: 620px;
   }
   .button {
-    padding: 0 10px 0 40px;
+    padding: 0 50px 0 100px;
+    word-wrap: break-word;
     font-size: 32px;
+  }
+  .button.min {
+    font-size: 30px;
   }
   .button:before {
     left: 30px;
@@ -355,9 +363,12 @@ button:before {
   border-radius: 20px;
   /* position: absolute; */
   width: 620px;
-  height: 600px;
+  height: 700px;
   padding: 10px;
   z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   /* margin: 0 auto; */
   /* bottom: 300px;
   left: 300px; */
@@ -370,7 +381,7 @@ button:before {
   justify-content: center;
   align-items: center;
   gap: 30px;
-  height: 100%;
+  /* height: 100%; */
   padding: 30px;
 }
 
@@ -388,6 +399,10 @@ button:before {
   color: #fff;
   font-size: 33px;
   line-height: 1.2;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 .edit-date {
   width: 310px;
@@ -409,6 +424,34 @@ button:before {
 }
 .make-changes-button:hover {
   background-color: rgb(224, 224, 42);
+}
+
+.block-language {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.button-eng,
+.button-rus,
+.button-esp {
+  width: 100%;
+}
+
+.button-language {
+  line-height: 60px;
+  height: 80px;
+  font-size: 33px;
+  color: #000;
+  background-color: rgb(126, 126, 126);
+  border-radius: 20px;
+  -webkit-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
+  -moz-box-shadow: 5px 4px 8px 0px rgba(34, 60, 80, 0.5);
+  box-shadow: 5px;
+  padding: 10px 20px;
+}
+.button-language.active {
+  background-color: rgb(240, 240, 52);
 }
 
 .edit-title,

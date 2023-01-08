@@ -1,4 +1,5 @@
 import UI_ELEMENTS from './ui-elements.js'
+import CONTENT from './content.js'
 
 const defaultDataForUI = {
   title: 'Are you ready for the New Year?',
@@ -14,6 +15,11 @@ if (!colors) {
   }
 }
 
+let lang = JSON.parse(localStorage.getItem('lang')) //===>><<===
+if (!lang) {
+  lang = 'eng'
+}
+
 let dataForUI = JSON.parse(localStorage.getItem('dataForUI')) //===>><<===
 if (!dataForUI) {
   dataForUI = {}
@@ -26,6 +32,52 @@ if (!dataForUI) {
   UI_ELEMENTS.MODAL_WINDOW.inputForTitle.value = dataForUI.title
   UI_ELEMENTS.MODAL_WINDOW.inputForTime.value = dataForUI.time
   UI_ELEMENTS.MODAL_WINDOW.inputForDate.value = dataForUI.date
+}
+
+UI_ELEMENTS.MODAL_WINDOW.languageButtons.forEach((item) => {
+  item.addEventListener('click', changeLanguage)
+  if (item.dataset.lang === lang) {
+    item.classList.add('active')
+  }
+})
+function changeLanguage(e) {
+  UI_ELEMENTS.MODAL_WINDOW.languageButtons.forEach((item) => {
+    item.classList.remove('active')
+  })
+  e.target.classList.add('active')
+  lang = e.target.dataset.lang
+  localStorage.setItem('lang', JSON.stringify(lang)) // <<======>>
+  renderForContent(lang)
+}
+
+function renderForContent(lang) {
+  UI_ELEMENTS.TITLE.textContent = CONTENT.title[lang] ///-------- конфликт
+  UI_ELEMENTS.SUBTITLES.days.textContent = CONTENT.subtitle.days[lang]
+  UI_ELEMENTS.SUBTITLES.hours.textContent = CONTENT.subtitle.hours[lang]
+  UI_ELEMENTS.SUBTITLES.minutes.textContent = CONTENT.subtitle.minutes[lang]
+  UI_ELEMENTS.SUBTITLES.seconds.textContent = CONTENT.subtitle.seconds[lang]
+  UI_ELEMENTS.BUTTONS.buttonColor.textContent = CONTENT.buttons.color[lang]
+  UI_ELEMENTS.BUTTONS.buttonGradient.textContent =
+    CONTENT.buttons.gradient[lang]
+  UI_ELEMENTS.BUTTONS.buttonBlack.textContent = CONTENT.buttons.black[lang]
+  UI_ELEMENTS.BUTTONS.buttonEdit.textContent = CONTENT.buttons.edit[lang]
+
+  UI_ELEMENTS.MODAL_WINDOW.label.textContent = CONTENT.modalWindow.label[lang]
+  UI_ELEMENTS.MODAL_WINDOW.inputForTitle.value = CONTENT.modalWindow.input[lang] /// -------
+  UI_ELEMENTS.MODAL_WINDOW.makeChangesButton.textContent =
+    CONTENT.modalWindow.buttonEdit[lang]
+  UI_ELEMENTS.MODAL_WINDOW.resetButton.textContent =
+    CONTENT.modalWindow.buttonReset[lang]
+
+  if (lang === 'rus' || lang === 'esp') {
+    UI_ELEMENTS.BUTTONS.allButtons.forEach((item) => item.classList.add('min'))
+    UI_ELEMENTS.MODAL_WINDOW.makeChangesButton.classList.add('min')
+  } else {
+    UI_ELEMENTS.BUTTONS.allButtons.forEach((item) =>
+      item.classList.remove('min')
+    )
+    UI_ELEMENTS.MODAL_WINDOW.makeChangesButton.classList.remove('min')
+  }
 }
 
 UI_ELEMENTS.BODY.style.background =
@@ -53,10 +105,7 @@ function changeColor() {
   localStorage.setItem('colors', JSON.stringify(colors)) // <<======>>
 }
 
-UI_ELEMENTS.BUTTONS.editTitleAndTime.addEventListener(
-  'click',
-  showModalWindowForEdit
-)
+UI_ELEMENTS.BUTTONS.buttonEdit.addEventListener('click', showModalWindowForEdit)
 
 function showModalWindowForEdit() {
   UI_ELEMENTS.MODAL_WINDOW.container.classList.add('active')
@@ -110,6 +159,7 @@ function closeModalWindow() {
 }
 
 render()
+renderForContent(lang)
 setInterval(render, 1000)
 
 function render() {
