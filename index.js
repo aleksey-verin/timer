@@ -39,12 +39,22 @@ function render() {
   const currentDate = new Date()
   const nextYear = currentDate.getUTCFullYear() + 1
 
+  const tempTimeZone = currentDate.getTimezoneOffset() / -60
+  let sign = tempTimeZone >= 0 ? '+' : '-'
+  let userTimeZone =
+    String(tempTimeZone).length < 2
+      ? sign + 0 + tempTimeZone
+      : sign + tempTimeZone
+
   let dateWeNeed
   if (dataForUI) {
-    dateWeNeed = Date.parse(`${dataForUI.date}T${dataForUI.time}:00.000+03:00`)
+    dateWeNeed = Date.parse(
+      `${dataForUI.date}T${dataForUI.time}:00.000${userTimeZone}:00`
+    )
   } else {
-    dateWeNeed = Date.parse(`${nextYear}-01-01T00:00:00.000+03:00`)
+    dateWeNeed = Date.parse(`${nextYear}-01-01T00:00:00.000${userTimeZone}:00`)
   }
+
   const deference = dateWeNeed - currentDate
 
   const time = {}
